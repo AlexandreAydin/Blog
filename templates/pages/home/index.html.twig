@@ -7,6 +7,9 @@
         <div class="row">
             <div class="col-md-8">
                 <h3 class="pb-4 mb-4 fst-italic border-bottom"> Article récents</h3>
+                <div id="article-list">
+                    {% include "pages/article/list.html.twig" with {articles} %} 
+                </div>
             </div>
 
             <div class="col-md-4">
