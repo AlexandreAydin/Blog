@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Article;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
@@ -24,6 +25,7 @@ class ArticleCrudController extends AbstractCrudController
             SlugField::new('slug')->setTargetFieldName('title'),
             TextEditorField::new('content','contenue'),
             TextField::new('featuredText','résumé du blog'),
+            AssociationField::new('categories','catégorie'),
             DateTimeField::new('createdAt','date de création')->hideOnForm(),
             DateTimeField::new('updatedAt','date de modification')->hideOnForm(),
         ];

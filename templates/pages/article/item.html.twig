@@ -1,6 +1,6 @@
 <article class="mb-5">
     <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-{{ leftCol ?? 5 }}">
             {% if article.featuredImage %}
                 <a href="{{ path('article_show', { 'slug': article.slug }) }}">
                     <img src="/uploads/{{ article.featuredImage.filename }}" alt="{{ article.featuredImage.altText }}" loading="lazy" width="350" height="205" >
@@ -8,7 +8,7 @@
             {% endif %}
         </div>
 
-         <div class="col-md-7">
+         <div class="col-md-{{ rightCol ?? 7 }}">
             <h2>
                 <a href="{{ path('app_article_show', { 'slug': article.slug })}}" class="text-decoration-none">{{article.title }} </a>
             </h2>
