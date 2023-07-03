@@ -6,7 +6,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby='dropdownMenuButtonAdmin'>
                         <li><a class="dropdown-item" href="{{path('app_admin')}}">Tableau de bord</a></li>
-                        <li><a class="dropdown-item" href="#">Menu</a></li>
+                        <li><a class="dropdown-item" href="{{ ea_admin_url('MenuCrudController') }}">Menu</a></li>
                     </ul>
                 </div>   
                  <div class="dropdown">
@@ -26,8 +26,27 @@
                 <a href="{{path('app_home')}}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
                     <span class="fs-4 header-title">Blog</span>
                 </a>
+                <ul class="nav nav-pills align-items-center">
 
-                 <ul class="nav nav-pills align-items-center">
+                    {% for menu in menus %}
+                    {% if menu.subMenus.count > 0 %}
+                            <div class="dropdown">
+                                <a class="nav-link nav-link text-dark dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ menu.name }}
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby='dropdownMenuButtonAdmin'>
+                                    {% for subMenu in menu.subMenus %}
+                                         <li><a class="dropdown-item" href="{{ subMenu|menuLink }}">{{ subMenu.name }}</a></li>
+                                    {% endfor %}
+                            </div>
+                    {% else %}
+                        <li class="nav-item">
+                            <a href="{{ menu|menuLink }}" class="nav-link text-dark">{{menu.name}}</a>
+                        </li>
+                    {% endif %}
+                    {% endfor %}
+
+
                     <li class="nav-item">
                         <a href="" class="nav-link text-dark">S'inscrire</a>
                     </li>
