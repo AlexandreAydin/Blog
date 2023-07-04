@@ -46,13 +46,28 @@
                     {% endif %}
                     {% endfor %}
 
-
+                    {% if app.user %}        
+                   <div class="dropdown">
+                        <a class="nav-link nav-link text-dark dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{app.user.email}}
+                        </a>
+                        <ul class='dropdown-menu'>
+                            <li class="nav-item">
+                                <a href="{{path ('app_user',{ email : app.user.email})}}" class="nav-link text-dark">Profile</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{path('app_logout')}}" class="nav-link text-dark">Se connecter</a>
+                            </li>
+                        </ul>
+                   </div>
+                    {% else %}
                     <li class="nav-item">
-                        <a href="" class="nav-link text-dark">S'inscrire</a>
+                        <a href="{{path('app_register')}}" class="nav-link text-dark">S'inscrire</a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link text-dark">Se connecter</a>
+                        <a href="{{path('app_login')}}" class="nav-link text-dark">Se connecter</a>
                     </li>
+                    {% endif %}
 
                 </ul>
             </header>
