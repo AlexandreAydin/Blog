@@ -26,6 +26,11 @@ class ArticleCrudController extends AbstractCrudController
             TextEditorField::new('content','contenue'),
             TextField::new('featuredText','résumé du blog'),
             AssociationField::new('categories','catégorie'),
+            AssociationField::new('featuredImage','media'),
+            // ->setFormTypeOptions([
+            //     'by_reference' => false,
+            //     'multiple' => true,]
+            // ),
             DateTimeField::new('createdAt','date de création')->hideOnForm(),
             DateTimeField::new('updatedAt','date de modification')->hideOnForm(),
         ];

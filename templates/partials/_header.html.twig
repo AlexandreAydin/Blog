@@ -1,3 +1,4 @@
+{% if is_granted ('ROLE_AUTHOR')%}
 <nav class="py-2 bg-dark border-bottom">
             <div class="container d-flex flex-wrap">
                <div class="dropdown">
@@ -6,7 +7,9 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby='dropdownMenuButtonAdmin'>
                         <li><a class="dropdown-item" href="{{path('app_admin')}}">Tableau de bord</a></li>
+                    {% if is_granted ('ROLE_ADMIN')%}
                         <li><a class="dropdown-item" href="{{ ea_admin_url('MenuCrudController') }}">Menu</a></li>
+                    {% endif %}
                     </ul>
                 </div>   
                  <div class="dropdown">
@@ -20,6 +23,7 @@
                 </div>   
             </div>
         </nav>
+{% endif %}
 
          <div class="container">
             <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
@@ -27,7 +31,6 @@
                     <span class="fs-4 header-title">Blog</span>
                 </a>
                 <ul class="nav nav-pills align-items-center">
-
                     {% for menu in menus %}
                     {% if menu.subMenus.count > 0 %}
                             <div class="dropdown">
@@ -56,7 +59,7 @@
                                 <a href="{{path ('app_user',{ email : app.user.email})}}" class="nav-link text-dark">Profile</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{path('app_logout')}}" class="nav-link text-dark">Se connecter</a>
+                                <a href="{{path('app_logout')}}" class="nav-link text-dark">Déconnexion</a>
                             </li>
                         </ul>
                    </div>
