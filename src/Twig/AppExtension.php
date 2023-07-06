@@ -2,18 +2,11 @@
 
 namespace App\Twig;
 
-use App\Controller\Admin\ArticleCrudController;
-use App\Controller\Admin\CategoryCrudController;
-use App\Controller\Admin\PageCrudController;
-use App\Entity\Article;
-use App\Entity\Category;
+
 use App\Entity\Menu;
-use App\Entity\Page;
-use Doctrine\Common\Collections\Collection;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Security\Core\Security;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
@@ -80,10 +73,11 @@ class AppExtension extends AbstractExtension
     }
 
 
-    public function getAdminUrl(string $controller): string
+    public function getAdminUrl(string $controller, string $action = Action::INDEX): string
     {
         return $this->adminUrlGenerator
-            ->setController(self::ADMIN_NAMESPACE . DIRECTORY_SEPARATOR . $controller)
+            ->setController(self::ADMIN_NAMESPACE . '\\' . $controller)
+            ->setAction($action)
             ->generateUrl();
     }
 
