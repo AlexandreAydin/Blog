@@ -11,9 +11,12 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 class ArticleService
 {
+    public const BLOG_ARTICLE_LIMIT = 'blog_article_limit';
+
     public function __construct(
         private RequestStack $requestStack,
         private ArticleRepository $articleRepo,
+        private OptionService $optionService,
         private PaginatorInterface $paginator
     ) {
 
@@ -24,7 +27,9 @@ class ArticleService
         $request = $this->requestStack->getMainRequest();
         $articlesQuery = $this->articleRepo->findForPagination($category);
         $page = $request->query->getInt('page', 1);
-        $limit = 10;
+        $limit = $this->optionService->getValue(ArticleService::BLOG_ARTICLE_LIMIT);
+
+
 
         return $this->paginator->paginate($articlesQuery, $page, $limit);
     }

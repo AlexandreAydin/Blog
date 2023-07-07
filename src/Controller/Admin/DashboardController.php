@@ -6,6 +6,7 @@ use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\Media;
 use App\Entity\Menu;
+use App\Entity\Option;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -14,6 +15,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class DashboardController extends AbstractDashboardController
 {
@@ -23,6 +25,7 @@ class DashboardController extends AbstractDashboardController
     {   
     }
 
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/admin', name: 'app_admin')]
     public function index(): Response
     {
@@ -75,6 +78,10 @@ class DashboardController extends AbstractDashboardController
             yield MenuItem::subMenu('Compte', 'fas fa-user')->setSubItems([
                 MenuItem::linkToCrud('Tous les comptes', 'fas fa-user-friends', User::class),
                 MenuItem::linkToCrud('Articles', 'fas fa-plus', User::class)->setAction(Crud::PAGE_NEW),
+            ]);
+
+            yield MenuItem::subMenu('Compte', 'fas fa-cog')->setSubItems([
+                MenuItem::linkToCrud('Tous les comptes', 'fas fa-user-cog', Option::class),
             ]);
         }
 

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\OptionRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: OptionRepository::class)]
@@ -20,11 +21,16 @@ class Option
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $value = null;
-
     #[ORM\Column(length: 255)]
     private ?string $type = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $value = null;
+
+    public function __toString()
+    {
+        return $this->value;
+    }
 
     public function getId(): ?int
     {
@@ -55,18 +61,6 @@ class Option
         return $this;
     }
 
-    public function getValue(): ?string
-    {
-        return $this->value;
-    }
-
-    public function setValue(string $value): static
-    {
-        $this->value = $value;
-
-        return $this;
-    }
-
     public function getType(): ?string
     {
         return $this->type;
@@ -75,6 +69,18 @@ class Option
     public function setType(string $type): static
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getValue(): ?string
+    {
+        return $this->value;
+    }
+
+    public function setValue(?string $value): static
+    {
+        $this->value = $value;
 
         return $this;
     }
